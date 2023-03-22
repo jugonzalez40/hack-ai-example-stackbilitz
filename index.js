@@ -4,10 +4,20 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const brand = '';
-const model = '';
-const genere = '';
-const columnsTypes = [''];
+const domain = 'sneakers';
+const brand = 'nike';
+const model = 'air force 1';
+const genere = 'women';
+const columnsTypes = ['US', 'EU', 'UK', 'CO', 'foot_length_cm'];
+
+const humanizedColumns = columnsTypes
+  .join(', ')
+  .replace('_', ' ')
+  .replace(/, ([^,]*)$/, ' and $1');
+
+const sentence = `give me a size chart example for ${domain} ${brand} ${model} for ${genere} with ${humanizedColumns} but in json format`;
+
+console.log(sentence);
 
 const init = async () => {
   const response = await openai.createChatCompletion({
@@ -15,8 +25,7 @@ const init = async () => {
     messages: [
       {
         role: 'user',
-        content:
-          'give me a size chart example for nike force 1 for women but in json format',
+        content: sentence,
       },
     ],
     temperature: 0,
