@@ -1,6 +1,6 @@
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
-  basePath: 'https://openai-proxy.melioffice.com/v1',
+  apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
@@ -15,20 +15,17 @@ const humanizedColumns = columnsTypes
   .replace('_', ' ')
   .replace(/, ([^,]*)$/, ' and $1');
 
-const sentence2 =
-  'Me puedes dar las tallas AR, Largo de pie, US, UK y EU en formato json devolviendo solamiente los arrays de AR, Largo de pie, US, UK y EU para el siguiente producto: Tipo: zapatillas, Marca: Fierros, Genero: Hombre, pero solo necesito las tallas';
-
 const sentence = `give me a size chart example for ${domain} ${brand} ${model} for ${genere} with ${humanizedColumns} sizes but in json format`;
 
 console.log(sentence);
 
 const init = async () => {
   const response = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4',
     messages: [
       {
         role: 'user',
-        content: sentence,
+        content: 'hello',
       },
     ],
     temperature: 0,
